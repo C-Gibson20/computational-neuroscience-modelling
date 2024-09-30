@@ -2,6 +2,8 @@
 
 This notebook implements Reinforcement Learning (RL) experiments using a Deep Deterministic Policy Gradient (DDPG) agent in a multi-modal maze environment. The agent's primary objective is to capture prey under various static and dynamic scenarios, with training and evaluation focused on different environmental conditions and agent hyperparameters. This document outlines the key components of the notebook, including the parameters, agent setup, RL training, and hyperparameter optimization using Optuna.
 
+**Note: This implementation is not yet fully completed, and further refinements are needed to finalize the results and analysis.**
+
 ## Imports
 The following libraries are imported to facilitate the environment simulation, agent training, and visualization of results:
 
