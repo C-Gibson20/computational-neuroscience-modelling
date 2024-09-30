@@ -1,4 +1,5 @@
-# Overview
+# Result Notebook Documentation
+
 <p>This script simulates predator-prey interactions in a multimodal maze environment. The predator's task is to capture prey, with various configurations of prey motion, multisensory inputs, and agent policies. The agent's behavior is modeled using rule-based, memory-based, or random policies. The script also includes visualizations of the predator-prey interactions and performance metrics, such as percentage capture and approach.</p>
 
 ## Key Components
