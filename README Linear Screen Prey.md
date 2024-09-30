@@ -1,9 +1,7 @@
-### Overview
+# Overview
 <p>This script simulates predator-prey interactions in a multimodal maze environment. The predator's task is to capture prey, with various configurations of prey motion, multisensory inputs, and agent policies. The agent's behavior is modeled using rule-based, memory-based, or random policies. The script also includes visualizations of the predator-prey interactions and performance metrics, such as percentage capture and approach.</p>
 
----
-
-### Key Components
+## Key Components
 1. **Imports**:
    - Standard libraries like `numpy`, `pickle`, and `matplotlib` are used for numerical operations, data handling, and visualizations.
    - `multimodal_mazes` is the core module providing the agent behaviors, environment settings, and prey simulation functions.
@@ -30,9 +28,7 @@
    - **Percentage Approached vs. Time**: Shows how prey visibility affects the agent’s approach percentage.
    - **Two Prey Capture Probability**: Evaluates the probability of capturing multisensory prey first under different noise conditions.
 
----
-
-### Functions and Visualization Techniques
+## Functions and Visualization Techniques
 - **update_animation(t)**: Updates the environment and agent-prey positions for each frame in the animation.
 - **Evaluator Class**: Provides fitness evaluation for the agent's behavior, calculating metrics like capture and approach percentage for multiple trials.
 - **Colormap Integration**: Uses custom colormaps to represent different sensory channels and environmental factors, providing a clear visual representation of agent behavior.
@@ -40,9 +36,7 @@
    - **Line plots** for percentage capture vs. speed, approach percentage vs. time, and multisensory prey capture probability.
    - **Error bars** represent the variability across multiple simulation runs (standard deviation).
 
----
-
-### Key Parameters for Customization
+## Key Parameters for Customization
 - **Scenario and Motion Types**:
    - Scenario options include static, constant, random, and two-prey situations.
    - Motion can be linear, Levy, or custom types for prey movements.
@@ -50,8 +44,3 @@
    - Policies include several predefined rule-based, memory-based, and random strategies, such as Nonlinear fusion, Levy motion, or Kinetic alignment.
 - **Multisensory or Unisensory Inputs**:
    - The agent can be tested in different sensory environments (e.g., unisensory, balanced multisensory) to explore how different sensory strategies affect predator-prey dynamics.
-
----
-
-### Conclusion
-This script simulates predator-prey interactions in various complex environments and provides both qualitative (visualization) and quantitative (metrics) insights into agent performance. It is highly customizable, with options for adjusting scenario settings, agent policies, and sensory conditions to explore a wide range of behavioral dynamics in the simulated environment.
