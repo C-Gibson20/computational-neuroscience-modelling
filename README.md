@@ -41,7 +41,18 @@ This directory includes files for trial setups where predator agents interact wi
 - **ContinuousLinearPreyTrial**: Evaluates agents against continuously moving prey.
 - **RuleBasedLinearPreyTrial**: Evaluates a rule-based predator agent in a scenario with linearly moving prey.
 
-## 4. results
+## 4. analysis
+This directory contains a script to evaluate model-generated trajectories against actual animal data using Dynamic Time Warping (DTW).
+
+### Purpose
+DTW provides a quantitive method for comparing predicted and actual prey trajectories, highlighting alignment quality across different models and experimental conditions.
+
+### Key Features:
+- **Trajectory Preprocessing** - Trajectories from both experimental data and model outputs are resampled, normalised, and averaged across trials.
+- **Comparison Visualisation**: Side-by-side plots for each start position and speed. Curves for model-to-data DTW distances.
+- **Model Evaluation**: Area Under Curve (AUC) metrics summarise DTW performance across models.
+
+## 5. results
 This directory stores experimental results, organized by the type of agent and scenario being tested. The results are separated into different folders for easy access and analysis.
 
 ### Folders:
@@ -49,7 +60,7 @@ This directory stores experimental results, organized by the type of agent and s
 - **RL Results**: Results from experiments using RL agents (DDPG or function approximation).
 - **Rulebased Results**: Results from experiments using rule-based agents.
 
-## 5. scripts
+## 6. scripts
 This directory contains Jupyter notebooks and script files for running specific experiments and generating results.
 
 ### Files:
