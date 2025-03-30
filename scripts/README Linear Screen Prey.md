@@ -5,7 +5,7 @@
 ## Imports
 Standard libraries like `numpy`, `pickle`, and `matplotlib` are used for numerical operations, data handling, and visualizations.
 `multimodal_mazes` is the core module providing the agent behaviors, environment settings, and prey simulation functions.
-`tqdm` is used for progress tracking in loops.
+`tqdm` is used for progress tracking in loops. Additional libraries like `h5py` are used for saving simulation results in HDF5 format.
 
 ## Parameters
 ### General Parameters
@@ -19,6 +19,7 @@ Standard libraries like `numpy`, `pickle`, and `matplotlib` are used for numeric
 ## Agent and Prey Initialization
    - Agents can have different policies (rule-based, memory-based, or random) with varying strategies for capturing prey.
    - Prey behavior can be static or dynamic, with different noise levels and motion types.
+   - `AgentIntercept` has been added for simulating kinetic alignment strategies.
 
 ## Simulation Execution
 The core simulation is performed by `PredatorTrial` or similar classes in the `multimodal_mazes` package. The trial runs and logs the agent's path, prey state, and environment states.
@@ -41,6 +42,7 @@ The core simulation is performed by `PredatorTrial` or similar classes in the `m
 - **Performance Visualization**:\n",
    - **Line plots** for percentage capture vs. speed, approach percentage vs. time, and multisensory prey capture probability.
    - **Error bars** represent the variability across multiple simulation runs (standard deviation).
+   - **Mean trajectory plots** summarize spatial patterns of agent paths at different prey speeds and start positions.
 
 ## Key Parameters for Customization
 - **Scenario and Motion Types**:
