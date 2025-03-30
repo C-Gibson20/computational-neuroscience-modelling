@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import multimodal_mazes  # Custom module for RL environment
 import seaborn as sns
+import h5py
 ```
 
 ## Parameters and Helper Functions
@@ -78,7 +79,9 @@ This section conducts experiments to test the success of the agent in capturing 
 The agent is trained and tested across four different agents for various scenarios. Each agent evaluates the prey capture and approach success for different parameter sets.
 
 ### Results Processing and Plotting
-The capture and approach success results are processed, averaged, and plotted with error bars to showcase performance trends.
+- The capture and approach success results are processed, averaged, and plotted with error bars to showcase performance trends.
+- Directional trajectory data is saved in an HDF5 file (rl_mean_coords.h5).
+- Mean trajectory paths are visualized using line plots per speed and case.
 
 ## Curriculum Learning Success vs Speed
 In this section, agents are trained using curriculum learning, with increasingly difficult tasks as training progresses. The results are plotted similarly to the Success vs Speed experiment, comparing different speeds and task cases.
