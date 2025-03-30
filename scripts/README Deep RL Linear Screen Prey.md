@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import multimodal_mazes  # Custom module for RL environment
 import seaborn as sns
+import h5py
+import gc
 ```
 
 - **numpy**: For numerical computations.
@@ -20,6 +22,8 @@ import seaborn as sns
 - **tqdm**: For progress tracking during training.
 - **multimodal_mazes**: A custom module for creating and running RL experiments.
 - **seaborn**: For enhanced data visualization.
+- **h5py**: For saving trajectory data in HDF5 format.
+- **gc**: For garbage collection and memory management.
 
 ## Parameters, Hyperparameters, and Helper Functions
 
@@ -47,41 +51,60 @@ The respective functions `static_hyperparamters()` and `constant_hyperparameters
 - `scenario`, `motion`, `multisensory`, `speed`: Scenario type, prey motion, and sensory input type.
 
 ## Static Training Test
-In this section, the agent is trained in a static environment where the prey remains in a fixed position. The training process is conducted using the `train_RL()` method for 10,000 training trials, after which performance metrics are plotted to assess the training progress.
+In this section, the agent is trained in a static environment where the prey remains in a fixed position. The training process is conducted using the `run_trials()` method for 400 trials, after which performance metrics are plotted to assess the training progress.
 
 ```python
-training_evaluator.train_RL(training_trials=10000)
-training_evaluator.training_plots(plot_training_lengths=True, plot_first_5_last_5=True)
+evaluator.run_trials(400, True)
+evaluator.training_plots(paths=True)
+evaluator.training_plots(reward=True)
+evaluator.training_plots(animate=True)
 ```
 
 ## Optuna Hyperparameter Search
 The Optuna framework is used to optimize the hyperparameters of the DDPG agent. Key parameters such as actor learning rate, critic learning rate, hidden dimensions, and exploration noise are explored to find the best configuration for maximizing the agent's reward during training.
+*Note: While Optuna has been used for hyperparameter tuning, the current script version does not include the Optuna setup or calls.*
 
-### Objective Function
-The `ddpg_objective(trial)` function defines the search space for Optuna to explore:
-- `trial.suggest_float()` and `trial.suggest_int()` are used to sample the learning rates, dimensions, and noise scale for the agent.
-- The agent is trained for 1000 episodes, and the total reward is reported to Optuna.
-- The `MedianPruner` is used to prune unpromising trials early based on the reward metrics.
-
-### Optuna Study
-A study is created to run 100 trials of hyperparameter tuning:
+## Constant Movement Training Test
+This section evaluates agent performance when prey moves linearly. Multiple scenarios (`case 1`, `case 2`, `case 3`) are tested across a range of prey speeds. Each scenario's results are aggregated, processed, and visualized to assess capture rates and robustness to motion:
+- Trial runs for each speed and scenario.
+- Capture success rates and standard deviations are calculated.
+- Line plots and error bars display performance metrics.
+    
+## Result Processing
+After all trials, the results are processed:
+- Capture success across scenarios is calculated and plotted.
+- A figure visualizes capture success against prey speed for all test cases.
+- Averages and standard deviations are computed to compare performance stability.
+    
+## Trajectory Plotting
+Agent trajectories are visualized to understand spatial behavior and strategies:
+- Prey-agent paths are analyzed for each speed and scenario.
+- Mean trajectories are plotted to highlight consistent patterns.
+- Path directionality and agent response to prey movement are captured.
+    
+## Trajectory Grouping
+Trajectories are grouped by prey starting direction (`LEFT`, `RIGHT`, `CENTER`) and categorized by effective prey movement direction:
+- Coordinates are binned and averaged.
+- This enables trajectory comparisons across directional biases.
+    
+## Saving Trajectories as h5
+All trajectory data is saved in HDF5 format using `h5py` for future analysis and reproducibility:
 ```python
-study.optimize(ddpg_objective, n_trials=100)
-```
-After the optimization, the best hyperparameters are printed for use in future training experiments.
-
-```python
-Best parameters: {'actor_lr': 1.0506603198418105e-05, 'critic_lr': 0.0005747127451203138, 'hidden_dim': 10, 'gamma': 0.9197484689502473, 'tau': 0.0009655446721377356, 'noise_scale': 0.49798430512987657}
+with h5py.File('deep_rl_mean_coords.h5', 'w') as h5file:
+    recursively_save_dict_contents(h5file, direction_coords)
 ```
 
 ## Key Functions
-- **`train_RL()`**: Trains the RL agent over a specified number of trials.
-- **`training_plots()`**: Visualizes the training process, including the performance over time and comparisons between the first and last trials.
+- **`run_trials()`**: Trains the RL agent over a specified number of trials.
+- **`training_plots()`**: Visualizes the training process, including performance over time and animations of agent behavior.
 - **`ddpg_objective()`**: Defines the objective for optimizing the DDPG agent's hyperparameters using Optuna.
+- **`recursively_save_dict_contents()`**: Helper function to save nested trajectory data in HDF5 format.
 
 ## Key Metrics
 - **Total Reward**: The cumulative reward over all episodes, used as the primary metric for assessing the performance of different hyperparameter configurations.
-- **Training Lengths**: Length of time (or number of steps) for which the agent is trained.
-- **Parameter Importance**: Visualizations provided by Optuna to display the importance of different hyperparameters in determining agent success.
+- **Capture Success**: The rate at which the agent successfully captures the prey.
+- **Training Lengths**: Number of steps taken to complete episodes.
+- **Parameter Importance**: Visualizations provided by Optuna to display the influence of different hyperparameters on success.
+- **Trajectory Patterns**: Spatial distribution and consistency of agent movements across trials.
 
 This notebook demonstrates a systematic approach to training a DDPG agent in a multi-modal maze environment, optimizing its performance using Reinforcement Learning techniques and hyperparameter tuning.
